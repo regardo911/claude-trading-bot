@@ -1,0 +1,50 @@
+{
+  "schema": "companion-repo.deviation-manifest.v1",
+  "book": "Use Claude to Build an AI Trading Bot — 90 Days with Stocks, Options, and Prediction Markets",
+  "book_edition": "2nd edition",
+  "manuscript_snapshot": {
+    "date": "2026-07-13",
+    "sha256": "596ace5605890759238d57238a2eb0deb21af5a66cebb6d22c6eb105c584fed4",
+    "note": "Content hash of the chapters this repo mirrors. If your printing differs from an entry below, check the 'status' field: the book was revised, and this repo tracks the revised text."
+  },
+  "status_legend": {
+    "resolved_in_book": "The current manuscript does the correct thing. The repo matches it. Earlier printings had the bug; kept here as a historical note.",
+    "still_current": "The current manuscript still carries this. The repo implements the honest version and says so.",
+    "repo_intentional_improvement": "The repo deliberately does something the book does not, for a stated reason. Not a book bug.",
+    "not_a_bug": "Looks like a bug, is not. Do not 'fix' it."
+  },
+  "deviations": [
+    { "id": 6,  "title": "Monte Carlo dispersion (random.sample vs random.choices)", "chapter": "ch06", "severity": "critical", "status": "resolved_in_book",
+      "note": "2nd ed samples WITH replacement (ch06.md:205, random.choices) and explains the permutation trap in prose (ch06.md:611). Repo matches. Earlier printings used random.sample and reported zero dispersion." },
+    { "id": 13, "title": "check_exits() covers a short instead of doubling it", "chapter": "ch05", "severity": "critical", "status": "resolved_in_book",
+      "note": "2nd ed covers shorts side-agnostically, moves the stop to breakeven after scale-out, and adds the 5-day time limit (ch05.md:500-550). Repo matches. Earlier printings submitted OrderSide.SELL unconditionally." },
+    { "id": 12, "title": "Sector concentration ignores the proposed position", "chapter": "ch09", "severity": "high", "status": "still_current",
+      "note": "check_sector_concentration() sums only existing positions; the chapter's own check_correlation() includes the proposed trade. Repo uses proposed + existing." },
+    { "id": 11, "title": "Rule 4 promises REDUCE; the code only BLOCKS", "chapter": "ch09", "severity": "high", "status": "still_current",
+      "note": "remaining_capacity is computed, returned as a formatted string, never read. Repo ships the REDUCE path and a REDUCED verdict." },
+    { "id": 10, "title": "evaluate_trade() has no stop_loss_pct parameter", "chapter": "ch09", "severity": "high", "status": "still_current",
+      "note": "The chapter's own 'widen TSLA to 5%' advice is unreachable through the sanctioned gatekeeper. Repo threads the parameter." },
+    { "id": 9,  "title": "suggested_bet is a three-way contradiction", "chapter": "ch07", "severity": "medium", "status": "still_current",
+      "note": "Code, prose, and the two worked examples disagree. Repo ships the code as printed (the only formula that reproduces any printed output) with the erratum stated." },
+    { "id": 7,  "title": "profit_factor: unformatted, and two formulas under one name", "chapter": "ch06/ch10", "severity": "medium", "status": "still_current",
+      "note": "avg-based in ch06 (Kelly consumes it), sum-based in ch10's gate + Appendix D. Repo keeps both under distinct names (profit_factor, gross_profit_factor)." },
+    { "id": 1,  "title": "MIN_VOLUME is a dead constant", "chapter": "ch07", "severity": "medium", "status": "still_current",
+      "note": "Declared, never referenced. Repo implements the liquidity filter." },
+    { "id": 14, "title": "Chapter 3's three rules exist in no code", "chapter": "ch03", "severity": "medium", "status": "still_current",
+      "note": "ADV floor, geopolitical penalty, Tier1/Tier2 conflict penalty. Repo implements all three in utils/signals.py, default-ON." },
+    { "id": 4,  "title": "Multi-agent JSON parsers can return None, unguarded", "chapter": "ch08", "severity": "medium", "status": "still_current",
+      "note": "ch04/05/07 guard it; ch08 does not. Repo adds the guard." },
+    { "id": 2,  "title": "Minimum trades: 30 in code, 100 in Appendix B", "chapter": "ch06/appB", "severity": "low", "status": "still_current",
+      "note": "Worked example wins: 30 is the hard gate, 100 the recommended floor." },
+    { "id": 3,  "title": "The 'last 5 minutes' poll window is prose-only", "chapter": "ch05", "severity": "low", "status": "still_current",
+      "note": "No time-window param in the printed get_live_flow(). Repo adds newer_than." },
+    { "id": 8,  "title": "ch06's Sharpe of 1.24 is not reachable from its own stats", "chapter": "ch06", "severity": "low", "status": "repo_intentional_improvement",
+      "note": "sqrt(252) annualizes per-trade 5-day returns (wrong in kind). Repo transcribes the formula exactly as printed because ch09/ch10 consume it; read it as a relative score." },
+    { "id": 15, "title": "ch11 mis-cites bracket orders to 'Chapter 9'", "chapter": "ch11", "severity": "low", "status": "still_current",
+      "note": "Bracket orders live in ch08's Executor. Repo docs cite ch08. No code impact." },
+    { "id": 16, "title": "Two prose-arithmetic errata with no code path", "chapter": "ch06/ch10", "severity": "low", "status": "still_current",
+      "note": "ch06.md:18 '21% chance of 12+ heads in 16 flips' is 3.84%; ch10's $50K upper band. Report-only; the repo computes neither." },
+    { "id": 5,  "title": "MAX_POSITION_PCT vs MAX_RISK_PER_TRADE", "chapter": "ch05/ch09", "severity": "none", "status": "not_a_bug",
+      "note": "2% notional vs 2% risk — different quantities sharing a numeral. The book reconciles them deliberately. Both ship, un-unified." }
+  ]
+}

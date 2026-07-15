@@ -1,0 +1,81 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "claude-trading-bot"
+version = "1.1.0"
+description = "Companion code to 'Use Claude to Build an AI Trading Bot'. Educational teaching companion, runs offline with zero API keys. Not financial advice, not a production trading system."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [{ name = "youcanbuildthings.com" }]
+keywords = [
+    "trading-bot", "claude", "algorithmic-trading", "options-trading",
+    "prediction-markets", "backtesting", "multi-agent", "monte-carlo",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+
+# The CORE stack. Deliberately small, and deliberately keyless: everything below
+# installs and runs with no accounts, no API keys and no network. The demo, the
+# full test suite and CI all live here. That is the headline claim of this repo
+# and it has to be literally true.
+dependencies = [
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "requests>=2.28.0",
+    "python-dotenv>=1.0.0",
+    "cryptography>=42.0.0",
+]
+
+[project.optional-dependencies]
+# Every heavy or keyed client is an EXTRA, lazily imported, degrading to a
+# deterministic fixture when absent. Install what you actually intend to use.
+broker  = ["alpaca-py>=0.43.0,<0.50.0"]           # live Alpaca (paper by default)
+llm     = ["anthropic>=0.40.0,<0.60.0"]           # the live Anthropic Messages API
+data    = ["yfinance>=1.3.0"]                     # live sector / earnings / prices
+predict = ["py-clob-client>=0.34.0"]              # Polymarket order placement
+viz     = ["matplotlib>=3.7.0"]                   # regenerating docs/images
+dev     = ["pytest>=8.0", "ruff>=0.6"]
+live    = ["claude-trading-bot[broker,llm,data,predict]"]
+all     = ["claude-trading-bot[broker,llm,data,predict,viz,dev]"]
+
+[project.urls]
+Homepage = "https://youcanbuildthings.com/books/ai-trading-bot"
+Repository = "https://github.com/regardo911/claude-trading-bot"
+
+[tool.setuptools]
+packages = [
+    "backtester", "flow_trader", "multi_agent", "prediction", "risk",
+    "screener", "setup", "tracking", "utils",
+]
+
+[tool.ruff]
+line-length = 90
+target-version = "py311"
+exclude = [".venv", "venv", "build", "dist"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM"]
+ignore = [
+    "E501",    # long lines: the book's prompt strings are quoted verbatim
+    "B008",
+    "SIM108",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E402", "F401"]
+"templates/*" = ["F401"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+filterwarnings = ["ignore::DeprecationWarning"]

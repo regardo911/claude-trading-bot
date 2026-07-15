@@ -1,0 +1,82 @@
+{
+  "_note": "Deterministic offline stand-ins for the ch04 per-event analysis call. Keyed by ticker. `_fenced: true` makes the stub wrap the JSON in a markdown code fence, which exercises the markdown-fallback parser at ch04.md:159-165. `dark_pool_read` is a repo addition (see docs/book-deviations.md #14) that feeds the ch03 Tier1<->Tier2 conflict rule; absent or UNKNOWN means no penalty.",
+  "_default": {
+    "direction": "BULLISH",
+    "confidence": 52,
+    "dark_pool_read": "UNKNOWN",
+    "reasoning": "Flow is aggressive but only one dimension is live in this standalone script. Without converging dark-pool, IV and sector reads, confidence stays below the tradeable band."
+  },
+  "NVDA": {
+    "direction": "BULLISH",
+    "confidence": 84,
+    "dark_pool_read": "BULLISH",
+    "reasoning": "A 12.8x volume/OI ratio on a 7-day near-the-money call with $2.31M premium is an aggressive, time-boxed directional bet, not inventory hedging. Sweep shape plus the strike's proximity to spot plus the short expiry all point the same way, and nothing in the sector baseline contradicts it. Three converging reads on the event itself, so this clears the 70+ bar."
+  },
+  "AMZN": {
+    "direction": "BULLISH",
+    "confidence": 78,
+    "dark_pool_read": "BULLISH",
+    "reasoning": "A 9.4x ratio with $1.68M of premium on a one-week call sweep is size that retail does not print. Strike sits just above spot, which is where directional buyers cluster when they expect a move inside the expiry window. Converging sweep size, premium and expiry timing put this in the tradeable band."
+  },
+  "AMD": {
+    "_fenced": true,
+    "direction": "BULLISH",
+    "confidence": 71,
+    "dark_pool_read": "BEARISH",
+    "reasoning": "The call sweep is real and the 5.6x ratio is meaningful, but the sweep prints alongside floor activity that reads as distribution rather than accumulation. Options flow says up, the dark-pool baseline for this float says down. Flagging the conflict rather than averaging it away."
+  },
+  "TSLA": {
+    "direction": "BEARISH",
+    "confidence": 74,
+    "dark_pool_read": "BEARISH",
+    "reasoning": "A $1.24M put sweep at a 6.8x ratio into a 7-day expiry is a short-dated downside bet, and the strike is below spot rather than a protective collar around it. Sweep aggression, premium size and the below-spot strike converge bearish."
+  },
+  "MU": {
+    "direction": "BULLISH",
+    "confidence": 66,
+    "dark_pool_read": "UNKNOWN",
+    "reasoning": "Floor print rather than a sweep, so the urgency signal is weaker. A 4.2x ratio and $610K premium are institutional-sized but not extreme. Two converging reads, not three, so this sits below the trading threshold."
+  },
+  "COIN": {
+    "direction": "BULLISH",
+    "confidence": 62,
+    "dark_pool_read": "UNKNOWN",
+    "reasoning": "The sweep is genuine but $530K is at the low end for this name's typical institutional prints, and a 4.2x ratio is unremarkable for a high-beta ticker. Not enough convergence to trade."
+  },
+  "META": {
+    "direction": "BEARISH",
+    "confidence": 72,
+    "dark_pool_read": "BEARISH",
+    "reasoning": "A $780K put sweep on a mega-cap with a 3.3x ratio is smaller than the call prints above, but puts on this name usually trade as hedges, and a sweep execution says the buyer wanted fills now rather than at a good price. Sweep aggression plus below-spot strike plus expiry timing converge bearish."
+  },
+  "SHOP": {
+    "direction": "BULLISH",
+    "confidence": 58,
+    "dark_pool_read": "UNKNOWN",
+    "reasoning": "$265K premium clears the screener floor but is small for this name. The 3.4x ratio is right at the threshold. One live dimension and no convergence: log it, do not trade it."
+  },
+  "F": {
+    "direction": "BULLISH",
+    "confidence": 55,
+    "dark_pool_read": "UNKNOWN",
+    "reasoning": "Low-priced underlying means contract counts inflate the ratio without implying much conviction. Premium is respectable but the strike is far enough out that this reads as a lottery ticket, not a positioned bet."
+  },
+  "BABA": {
+    "direction": "BULLISH",
+    "confidence": 77,
+    "dark_pool_read": "BULLISH",
+    "reasoning": "A $1.12M call sweep at 6.3x on a one-week expiry is aggressive and the flow shape is clean. On the flow event alone this would be a high-conviction read; the caveat is that no options signal can price a regulatory headline that has not happened yet."
+  },
+  "SMCI": {
+    "direction": "BULLISH",
+    "confidence": 69,
+    "dark_pool_read": "UNKNOWN",
+    "reasoning": "$720K on a 45-day call sweep is meaningful size, but the long expiry blunts the urgency read that makes short-dated sweeps informative. Just below the tradeable band."
+  },
+  "IRNT": {
+    "direction": "BULLISH",
+    "confidence": 73,
+    "dark_pool_read": "UNKNOWN",
+    "reasoning": "A 5.1x ratio and $610K of premium look strong in isolation, but on a name this thin the options tape is easy to move and the flow signal is not reliable. The confidence number here is exactly the kind of read the liquidity floor exists to override."
+  }
+}

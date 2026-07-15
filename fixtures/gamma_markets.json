@@ -1,0 +1,285 @@
+[
+  {
+    "id": "512001",
+    "question": "Will the Supreme Court issue a ruling in Case X before the end of this term?",
+    "conditionId": "0xsyn001",
+    "slug": "scotus-ruling-case-x",
+    "outcomes": [
+      "Yes",
+      "No"
+    ],
+    "outcomePrices": [
+      "0.22",
+      "0.78"
+    ],
+    "volume": "418000.0",
+    "liquidity": "96000.0",
+    "endDate": "2026-06-30T00:00:00Z",
+    "active": true,
+    "closed": false,
+    "clobTokenIds": [
+      "1001",
+      "1002"
+    ],
+    "lastTradePrice": 0.22,
+    "bestBid": 0.21,
+    "bestAsk": 0.23
+  },
+  {
+    "id": "512002",
+    "question": "Will the March CPI report show inflation below 2.8%?",
+    "conditionId": "0xsyn002",
+    "slug": "cpi-below-2-8",
+    "outcomes": [
+      "Yes",
+      "No"
+    ],
+    "outcomePrices": "[\"0.35\", \"0.65\"]",
+    "volume": "1240000.0",
+    "liquidity": "310000.0",
+    "endDate": "2026-06-12T00:00:00Z",
+    "active": true,
+    "closed": false,
+    "clobTokenIds": [
+      "1003",
+      "1004"
+    ],
+    "lastTradePrice": 0.35,
+    "bestBid": 0.34,
+    "bestAsk": 0.36
+  },
+  {
+    "id": "512003",
+    "question": "Will the Fed cut rates at the next FOMC meeting?",
+    "conditionId": "0xsyn003",
+    "slug": "fed-cut-next-fomc",
+    "outcomes": [
+      "Yes",
+      "No"
+    ],
+    "outcomePrices": [
+      "0.31",
+      "0.69"
+    ],
+    "volume": "2870000.0",
+    "liquidity": "640000.0",
+    "endDate": "2026-06-18T00:00:00Z",
+    "active": true,
+    "closed": false,
+    "clobTokenIds": [
+      "1005",
+      "1006"
+    ],
+    "lastTradePrice": 0.31,
+    "bestBid": 0.3,
+    "bestAsk": 0.32
+  },
+  {
+    "id": "512004",
+    "question": "Will Bitcoin close above $90K this week?",
+    "conditionId": "0xsyn004",
+    "slug": "btc-above-90k-this-week",
+    "outcomes": [
+      "Yes",
+      "No"
+    ],
+    "outcomePrices": [
+      "0.44",
+      "0.56"
+    ],
+    "volume": "930000.0",
+    "liquidity": "210000.0",
+    "endDate": "2026-05-16T00:00:00Z",
+    "active": true,
+    "closed": false,
+    "clobTokenIds": [
+      "1007",
+      "1008"
+    ],
+    "lastTradePrice": 0.44,
+    "bestBid": 0.43,
+    "bestAsk": 0.45
+  },
+  {
+    "id": "512005",
+    "question": "Will Company Q beat consensus EPS this quarter?",
+    "conditionId": "0xsyn005",
+    "slug": "company-q-eps-beat",
+    "outcomes": [
+      "Yes",
+      "No"
+    ],
+    "outcomePrices": [
+      "0.58",
+      "0.42"
+    ],
+    "volume": "265000.0",
+    "liquidity": "72000.0",
+    "endDate": "2026-07-25T00:00:00Z",
+    "active": true,
+    "closed": false,
+    "clobTokenIds": [
+      "1009",
+      "1010"
+    ],
+    "lastTradePrice": 0.58,
+    "bestBid": 0.57,
+    "bestAsk": 0.59
+  },
+  {
+    "id": "512006",
+    "question": "Will a named storm make landfall in Florida in July?",
+    "conditionId": "0xsyn006",
+    "slug": "storm-landfall-fl-july",
+    "outcomes": [
+      "Yes",
+      "No"
+    ],
+    "outcomePrices": [
+      "0.12",
+      "0.88"
+    ],
+    "volume": "0.0",
+    "liquidity": "0.0",
+    "endDate": "2026-07-31T00:00:00Z",
+    "active": true,
+    "closed": false,
+    "clobTokenIds": [
+      "1011",
+      "1012"
+    ],
+    "lastTradePrice": 0.12,
+    "bestBid": 0.1,
+    "bestAsk": 0.15
+  },
+  {
+    "id": "512007",
+    "question": "Will it rain in New York City on March 25?",
+    "conditionId": "0xsyn007",
+    "slug": "rain-nyc-march-25",
+    "outcomes": [
+      "Yes",
+      "No"
+    ],
+    "outcomePrices": [
+      "0.41",
+      "0.59"
+    ],
+    "volume": "84000.0",
+    "liquidity": "12000.0",
+    "endDate": "2026-03-25T00:00:00Z",
+    "active": true,
+    "closed": false,
+    "clobTokenIds": [
+      "1013",
+      "1014"
+    ],
+    "lastTradePrice": 0.41,
+    "bestBid": 0.4,
+    "bestAsk": 0.42
+  },
+  {
+    "id": "512008",
+    "question": "Will a certain pop star announce a new album this month?",
+    "conditionId": "0xsyn008",
+    "slug": "pop-star-album",
+    "outcomes": [
+      "Yes",
+      "No"
+    ],
+    "outcomePrices": [
+      "0.27",
+      "0.73"
+    ],
+    "volume": "156000.0",
+    "liquidity": "31000.0",
+    "endDate": "2026-05-31T00:00:00Z",
+    "active": true,
+    "closed": false,
+    "clobTokenIds": [
+      "1015",
+      "1016"
+    ],
+    "lastTradePrice": 0.27,
+    "bestBid": 0.26,
+    "bestAsk": 0.28
+  },
+  {
+    "id": "512009",
+    "question": "Will the S&P 500 close above 5,500 on Friday?",
+    "conditionId": "0xsyn009",
+    "slug": "spx-above-5500-friday",
+    "outcomes": [
+      "Yes",
+      "No"
+    ],
+    "outcomePrices": [
+      "0.62",
+      "0.38"
+    ],
+    "volume": "1720000.0",
+    "liquidity": "402000.0",
+    "endDate": "2026-05-15T00:00:00Z",
+    "active": true,
+    "closed": false,
+    "clobTokenIds": [
+      "1017",
+      "1018"
+    ],
+    "lastTradePrice": 0.62,
+    "bestBid": 0.61,
+    "bestAsk": 0.63
+  },
+  {
+    "id": "512011",
+    "question": "Will the December jobs report show unemployment above 4.5%?",
+    "conditionId": "0xsyn011",
+    "slug": "unemployment-above-4-5",
+    "outcomes": [
+      "Yes",
+      "No"
+    ],
+    "outcomePrices": [
+      "0.29",
+      "0.71"
+    ],
+    "volume": "4200.0",
+    "liquidity": "900.0",
+    "endDate": "2027-01-09T00:00:00Z",
+    "active": true,
+    "closed": false,
+    "clobTokenIds": [
+      "1021",
+      "1022"
+    ],
+    "lastTradePrice": 0.29,
+    "bestBid": 0.27,
+    "bestAsk": 0.31
+  },
+  {
+    "id": "512010",
+    "question": "Will the incumbent party hold the governorship in State Y?",
+    "conditionId": "0xsyn010",
+    "slug": "state-y-governor",
+    "outcomes": [
+      "Yes",
+      "No"
+    ],
+    "outcomePrices": [
+      "0.47",
+      "0.53"
+    ],
+    "volume": "3140000.0",
+    "liquidity": "880000.0",
+    "endDate": "2026-11-03T00:00:00Z",
+    "active": true,
+    "closed": false,
+    "clobTokenIds": [
+      "1019",
+      "1020"
+    ],
+    "lastTradePrice": 0.47,
+    "bestBid": 0.46,
+    "bestAsk": 0.48
+  }
+]

@@ -1,0 +1,47 @@
+# Secrets. Never, ever commit these.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p8
+credentials.json
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Runtime artifacts the bots write. These are YOUR results, not the repo's.
+screener/watchlist_*.json
+screener/tracking.json
+screener/log.txt
+flow_trader/trade_log.json
+flow_trader/exit_state.json
+backtester/historical_flow.csv
+backtester/report.json
+backtester/report_*.json
+backtester/monte_carlo.png
+prediction/opportunities_*.json
+prediction/markets.json
+prediction/estimates.json
+prediction/calibration.json
+multi_agent/cycle_log.json
+tracking/daily_metrics.json
+
+# OS
+.DS_Store
+Thumbs.db

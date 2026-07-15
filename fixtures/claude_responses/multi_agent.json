@@ -1,0 +1,52 @@
+{
+  "_note": "Deterministic offline stand-ins for the four ch08 agents. The Analyst recommends three names off the shared UW flow snapshot; the Risk Manager APPROVEs one, REDUCEs one and REJECTs one -- the chapter's headline moment (ch08.md:582-591) -- and it is reproduced here from the fixture portfolio's actual sector concentration, not asserted.",
+  "monitor": {
+    "status": "WARNING",
+    "alerts": [
+      "NVDA is down 3.0% and is sitting on its stop-loss threshold.",
+      "Technology exposure is 30.8% of portfolio value across NVDA and MU."
+    ],
+    "actions_needed": [
+      {"ticker": "NVDA", "action": "MONITOR", "reason": "At the 3% stop threshold; the broker-side bracket stop is the backstop, not this agent."},
+      {"ticker": "AMZN", "action": "MONITOR", "reason": "Up 6.0% and at the profit target; scale-out logic owns this, no emergency action."}
+    ]
+  },
+  "analyst": {
+    "recommendations": [
+      {
+        "ticker": "NVDA", "direction": "BUY", "confidence": 84, "suggested_shares": 25,
+        "reasoning": "The largest print in the cycle's flow snapshot: 12.8x volume/OI, $2.31M premium, one-week near-the-money call sweep. Sweep aggression, premium size and short expiry all converge.",
+        "signals": ["12.8x volume/OI", "$2.31M premium", "7-day near-the-money sweep"]
+      },
+      {
+        "ticker": "AMD", "direction": "BUY", "confidence": 76, "suggested_shares": 40,
+        "reasoning": "A $940K call sweep at 5.6x with floor participation alongside it. Smaller than NVDA but the same shape, and the sector tape has been firm.",
+        "signals": ["5.6x volume/OI", "$940K premium", "sweep plus floor print"]
+      },
+      {
+        "ticker": "META", "direction": "SELL", "confidence": 71, "suggested_shares": 15,
+        "reasoning": "A $780K put sweep at 3.3x on a mega-cap. Execution as a sweep rather than a worked order says the buyer wanted fills immediately.",
+        "signals": ["3.3x volume/OI", "$780K put premium", "sweep execution"]
+      }
+    ]
+  },
+  "risk": {
+    "decisions": [
+      {
+        "ticker": "NVDA", "direction": "BUY", "action": "APPROVE", "approved_shares": 22,
+        "stop_loss_pct": 3.0, "profit_target_pct": 6.0,
+        "reasoning": "Sized to the 2% position cap on a $100K portfolio at the current quote. Technology is at 30.8%, and this position keeps it under the 40% ceiling."
+      },
+      {
+        "ticker": "AMD", "direction": "BUY", "action": "REDUCE", "approved_shares": 15,
+        "stop_loss_pct": 3.0, "profit_target_pct": 6.0,
+        "reasoning": "Portfolio is already 30.8% technology. The Analyst's 40 shares would push the sector past the 40% cap once NVDA fills, so this is cut to the largest size that still fits under it."
+      },
+      {
+        "ticker": "META", "direction": "SELL", "action": "REJECT", "approved_shares": 0,
+        "stop_loss_pct": 3.0, "profit_target_pct": 6.0,
+        "reasoning": "Communication Services is a fine diversifier, but the portfolio would be over 40% technology after NVDA and AMD and this cycle has already spent its risk budget. Rejecting rather than stacking a third new position in one cycle."
+      }
+    ]
+  }
+}

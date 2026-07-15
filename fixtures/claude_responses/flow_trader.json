@@ -1,0 +1,88 @@
+{
+  "_note": "Deterministic offline stand-ins for the ch05 analyze_flow_event() call. Same shape as screener.json plus the book's `suggested_action` enum (BUY_SHARES / SELL_SHORT / NO_TRADE). `dark_pool_read` is the repo addition documented in docs/book-deviations.md #14.",
+  "_default": {
+    "direction": "BULLISH",
+    "confidence": 52,
+    "dark_pool_read": "UNKNOWN",
+    "suggested_action": "NO_TRADE",
+    "reasoning": "One live dimension, no convergence. Log it and move on."
+  },
+  "NVDA": {
+    "direction": "BULLISH",
+    "confidence": 84,
+    "dark_pool_read": "BULLISH",
+    "suggested_action": "BUY_SHARES",
+    "reasoning": "12.8x volume/OI on a 7-day near-the-money call sweep with $2.31M of premium. Sweep aggression, premium size and the short expiry converge; this is a positioned bet, not inventory hedging."
+  },
+  "AMZN": {
+    "direction": "BULLISH",
+    "confidence": 78,
+    "dark_pool_read": "BULLISH",
+    "suggested_action": "BUY_SHARES",
+    "reasoning": "A 9.4x ratio and $1.68M of premium on a one-week call sweep, struck just above spot. That is the shape of a buyer who expects the move inside the expiry window."
+  },
+  "AMD": {
+    "_fenced": true,
+    "direction": "BULLISH",
+    "confidence": 71,
+    "dark_pool_read": "BEARISH",
+    "suggested_action": "BUY_SHARES",
+    "reasoning": "The call sweep is real, but the floor participation alongside it reads as distribution rather than accumulation. Options flow says up; the dark-pool baseline for this float says down. Reporting the conflict instead of averaging it away."
+  },
+  "TSLA": {
+    "direction": "BEARISH",
+    "confidence": 74,
+    "dark_pool_read": "BEARISH",
+    "suggested_action": "SELL_SHORT",
+    "reasoning": "$1.24M put sweep at 6.8x into a 7-day expiry, struck below spot. Short-dated, aggressive, directional downside."
+  },
+  "MU": {
+    "direction": "BULLISH",
+    "confidence": 66,
+    "dark_pool_read": "UNKNOWN",
+    "suggested_action": "NO_TRADE",
+    "reasoning": "Floor print, not a sweep, so the urgency read is weaker. Two converging signals, not three. Below the 70% threshold."
+  },
+  "COIN": {
+    "direction": "BULLISH",
+    "confidence": 62,
+    "dark_pool_read": "UNKNOWN",
+    "suggested_action": "NO_TRADE",
+    "reasoning": "$530K is at the low end for this name's institutional prints and a 4.2x ratio is unremarkable on a high-beta ticker. Not tradeable."
+  },
+  "META": {
+    "direction": "BEARISH",
+    "confidence": 72,
+    "dark_pool_read": "BEARISH",
+    "suggested_action": "SELL_SHORT",
+    "reasoning": "A $780K put sweep executed as a sweep rather than worked into the book. The buyer wanted fills now. Below-spot strike and short expiry converge bearish."
+  },
+  "BABA": {
+    "direction": "BULLISH",
+    "confidence": 77,
+    "dark_pool_read": "BULLISH",
+    "suggested_action": "BUY_SHARES",
+    "reasoning": "Clean $1.12M call sweep at 6.3x on a one-week expiry. On the flow event alone this is a high-conviction read. No options signal prices a regulatory headline that has not happened yet."
+  },
+  "IRNT": {
+    "direction": "BULLISH",
+    "confidence": 73,
+    "dark_pool_read": "UNKNOWN",
+    "suggested_action": "BUY_SHARES",
+    "reasoning": "5.1x ratio and $610K of premium look strong in isolation. On a name this thin, the options tape is cheap to move and the signal is unreliable."
+  },
+  "SMCI": {
+    "direction": "BULLISH",
+    "confidence": 69,
+    "dark_pool_read": "UNKNOWN",
+    "suggested_action": "NO_TRADE",
+    "reasoning": "$720K of premium is meaningful, but a 45-day expiry blunts the urgency read that makes short-dated sweeps informative."
+  },
+  "F": {
+    "direction": "BULLISH",
+    "confidence": 55,
+    "dark_pool_read": "UNKNOWN",
+    "suggested_action": "NO_TRADE",
+    "reasoning": "A low-priced underlying inflates contract counts without implying conviction. Reads as a lottery ticket."
+  }
+}

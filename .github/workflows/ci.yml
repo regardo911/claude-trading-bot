@@ -1,0 +1,122 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# No secrets. None are needed, and that is the point: if this workflow ever needs
+# a credential to go green, the repo's headline claim has stopped being true.
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: py${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install CORE deps only
+        # Deliberately NOT ".[live]" and NOT requirements.txt. anthropic, alpaca-py,
+        # yfinance, py-clob-client and matplotlib are all optional extras that degrade
+        # to deterministic fixtures. Installing only the core stack is how the
+        # "runs offline, zero API keys" claim gets PROVEN on every push instead of
+        # merely asserted.
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Confirm no API keys are present
+        run: |
+          for var in ANTHROPIC_API_KEY UW_API_KEY ALPACA_API_KEY ALPACA_SECRET_KEY KALSHI_KEY_ID; do
+            if [ -n "${!var:-}" ]; then
+              echo "::error::$var is set in CI. It must not be."
+              exit 1
+            fi
+          done
+          test ! -f .env || (echo "::error::a .env file is committed" && exit 1)
+          echo "No credentials present. Good."
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Test suite (offline, no keys)
+        env:
+          CTB_OFFLINE: "1"
+        run: pytest tests/ -q
+
+      - name: Environment + imports check
+        env:
+          CTB_OFFLINE: "1"
+        run: make check
+
+      - name: Offline demo smoke test (diagnostic)
+        env:
+          CTB_OFFLINE: "1"
+        run: python tools/demo.py
+
+      - name: Offline full-tour smoke test
+        env:
+          CTB_OFFLINE: "1"
+        run: python tools/demo.py --tour
+
+  secrets:
+    name: secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan the tree for credentials
+        run: |
+          set -e
+          fail=0
+
+          # Committed key material
+          if git ls-files | grep -E '\.(pem|key|p8|pfx)$'; then
+            echo "::error::key material is committed"; fail=1
+          fi
+          if git ls-files | grep -qx '.env'; then
+            echo "::error::.env is committed"; fail=1
+          fi
+
+          # Live-looking credentials in tracked files.
+          # The scanners are excluded from their own patterns -- this workflow and
+          # tests/test_safety.py necessarily CONTAIN the strings they hunt for.
+          SCAN=':!.github/workflows/ci.yml :!tests/test_safety.py'
+          if git grep -nIE 'sk-ant-api[0-9]{2}-[A-Za-z0-9_-]{20,}' -- . $SCAN ; then
+            echo "::error::a real-looking Anthropic key is committed"; fail=1
+          fi
+          if git grep -nIE 'BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY' -- . $SCAN ; then
+            echo "::error::a PEM private key is committed"; fail=1
+          fi
+
+          # The two things the 2nd edition exists to kill
+          if git ls-files | grep -q 'mcp_config.json'; then
+            echo "::error::mcp_config.json is back. ch02.md:353 exists to kill it."; fail=1
+          fi
+          if git grep -nI 'claude-sonnet-4-20250514' -- '*.py' '*.toml' '*.txt' ':!tests/' ; then
+            echo "::error::the deprecated model alias is in the code"; fail=1
+          fi
+          # It may appear in a comment warning you off it (the book does exactly
+          # that). It must never be an actual requirement line.
+          if grep -vE '^\s*(#|$)' requirements.txt pyproject.toml | grep -q 'unusual-whales-mcp'; then
+            echo "::error::unusual-whales-mcp is a community fork. Never install it."; fail=1
+          fi
+
+          exit $fail

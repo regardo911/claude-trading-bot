@@ -1,0 +1,67 @@
+{
+  "_note": "Deterministic offline stand-ins for the ch07 estimate_probability() call, keyed by the market question. Time-sensitive questions are forced to LOW confidence, exactly as the ch07 prompt instructs, so they drop out of the opportunities list.",
+  "_default": {
+    "estimated_probability": 0.5,
+    "confidence": "LOW",
+    "reasoning": "No base rate in training data maps cleanly onto this question and the standalone script has no web search. Declining to disagree with the market.",
+    "key_data_points": ["no applicable base rate"]
+  },
+  "Will the Supreme Court issue a ruling in Case X before the end of this term?": {
+    "estimated_probability": 0.71,
+    "confidence": "MEDIUM",
+    "reasoning": "The historical base rate for the Court issuing a ruling on a case granted certiorari within the same term is very high, going back decades, and the end-of-term calendar backlog reinforces that prior. The market price appears to confuse 'ruling issued' with 'ruling in the petitioner's favor'; the question text only requires the former. This is a structural read, not a news-dependent one.",
+    "key_data_points": [
+      "base rate: cases granted cert are overwhelmingly decided within the same term",
+      "structural: end-of-term opinion backlog clears before recess",
+      "question text requires issuance, not a direction"
+    ]
+  },
+  "Will the March CPI report show inflation below 2.8%?": {
+    "estimated_probability": 0.45,
+    "confidence": "LOW",
+    "reasoning": "This turns on a specific dated data release. The standalone script has no web search, no nowcast and no access to the most recent prints, so any number I give here would be a guess dressed as an estimate. Forcing LOW per the prompt's time-sensitivity rule.",
+    "key_data_points": ["time-sensitive: requires the current CPI nowcast"]
+  },
+  "Will the Fed cut rates at the next FOMC meeting?": {
+    "estimated_probability": 0.30,
+    "confidence": "MEDIUM",
+    "reasoning": "Base rate for a cut at any single meeting outside an easing cycle is low, and the market price of 0.31 sits essentially on top of that prior. No disagreement worth acting on. Calibration means saying so rather than manufacturing an edge.",
+    "key_data_points": [
+      "base rate: single-meeting cut probability outside an easing cycle is modest",
+      "market price is already at the base rate"
+    ]
+  },
+  "Will Bitcoin close above $90K this week?": {
+    "estimated_probability": 0.44,
+    "confidence": "LOW",
+    "reasoning": "A weekly crypto close depends entirely on the current spot price, which this script cannot see. Any estimate is noise. Forcing LOW.",
+    "key_data_points": ["time-sensitive: requires the current spot price"]
+  },
+  "Will Company Q beat consensus EPS this quarter?": {
+    "estimated_probability": 0.62,
+    "confidence": "MEDIUM",
+    "reasoning": "The long-run base rate for large-cap issuers beating consensus EPS is comfortably above half, because consensus is managed downward into the print. The market at 0.58 is close to that prior. The 4-point gap is inside the noise band and does not clear the 10-point minimum.",
+    "key_data_points": [
+      "base rate: majority of large-cap issuers beat a managed consensus",
+      "gap is under the 10pp minimum"
+    ]
+  },
+  "Will the S&P 500 close above 5,500 on Friday?": {
+    "estimated_probability": 0.60,
+    "confidence": "LOW",
+    "reasoning": "A dated index-level close depends on where the index is trading today, which this script cannot see. Forcing LOW per the time-sensitivity rule.",
+    "key_data_points": ["time-sensitive: requires the current index level"]
+  },
+  "Will the incumbent party hold the governorship in State Y?": {
+    "estimated_probability": 0.55,
+    "confidence": "LOW",
+    "reasoning": "Incumbent-party gubernatorial retention has a real historical base rate, but a specific race turns on current polling that this script cannot fetch. The prompt's rule is explicit: time-sensitive political contracts get LOW.",
+    "key_data_points": ["time-sensitive: requires current polling"]
+  },
+  "Will the December jobs report show unemployment above 4.5%?": {
+    "estimated_probability": 0.36,
+    "confidence": "MEDIUM",
+    "reasoning": "Unemployment prints move slowly and the base rate for a specific threshold crossing in a single month is low absent a trend already underway. The market at 0.29 is close. (Note: this contract is below the MIN_VOLUME liquidity floor and never reaches this call in a normal run.)",
+    "key_data_points": ["base rate: month-over-month unemployment moves are small"]
+  }
+}

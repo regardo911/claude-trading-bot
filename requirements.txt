@@ -1,0 +1,27 @@
+# Verbatim from the book's Appendix A "Requirements File" (appendices.md:316-328).
+#
+# This is the FULL stack a reader who followed the book will have. It is not what
+# this repo needs to run: `pip install -e .` installs a much smaller core (see
+# pyproject.toml) and the offline demo, the tests and CI all run on that core with
+# zero API keys. Install this file when you want the live clients.
+#
+# `unusual-whales-mcp` is deliberately NOT on this list. The Unusual Whales MCP is
+# Node-based (npx), not pip, and is registered with Claude Code via `claude mcp
+# add`. The community-fork PyPI package of that name is not the official UW MCP
+# server. Do not install it. (appendices.md:330)
+#
+# Pin the versions after your initial testing. Change `>=` to `==` once you are in
+# production: if `anthropic` ships a breaking update, you want the version you
+# tested with, not the latest. (appendices.md:332)
+
+anthropic>=0.40.0,<0.60.0
+alpaca-py>=0.43.0,<0.50.0
+pandas>=2.0.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+requests>=2.28.0
+websocket-client>=1.5.0
+python-dotenv>=1.0.0
+yfinance>=1.3.0
+py-clob-client>=0.34.0
+cryptography>=42.0.0
